@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import me.ryall.scavenger.communication.CommunicationManager;
 import me.ryall.scavenger.listeners.EntityListener;
+import me.ryall.scavenger.listeners.PlayerListener;
 import me.ryall.scavenger.listeners.ServerListener;
 import me.ryall.scavenger.settings.PermissionManager;
 
@@ -20,6 +21,7 @@ public class Scavenger extends JavaPlugin
     private Logger log;
     private ServerListener serverListener;
     private EntityListener entityListener;
+    private PlayerListener playerListener;
     //private ConfigManager configManager;
     private PermissionManager permissionManager;
     private CommunicationManager communicationManager;
@@ -36,6 +38,7 @@ public class Scavenger extends JavaPlugin
         
         serverListener = new ServerListener();
         entityListener = new EntityListener();
+        playerListener = new PlayerListener();
         
         //configManager = new ConfigManager();
         permissionManager = new PermissionManager();
@@ -56,7 +59,10 @@ public class Scavenger extends JavaPlugin
         PluginManager pm = getServer().getPluginManager();
         
         pm.registerEvent(Event.Type.PLUGIN_ENABLE, serverListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Highest, this);
+        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Highest, this);
+        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Lowest, this);
     }
 
     /*public ConfigManager getConfigManager()
