@@ -31,11 +31,6 @@ public class RestorationManager
         restoration.enabled = false;
         restoration.drops = new ArrayList<ItemStack>(_drops);
         
-        for (ItemStack item : _drops)
-        {
-            Scavenger.get().getCommunicationManager().message(_player, "Scavenging: " + item.getAmount() + " of " + item.getType().toString());
-        }
-        
         restorations.put(_player.getName(), restoration);
         
         _drops.clear();
@@ -62,7 +57,6 @@ public class RestorationManager
                 
                 for (ItemStack item : restoration.drops)
                 {
-                    Scavenger.get().getCommunicationManager().message(_player, "Restoring: " + item.getAmount() + " of " + item.getType().toString());
                     _player.getInventory().setItem(_player.getInventory().firstEmpty(), item);
                 }
                 
