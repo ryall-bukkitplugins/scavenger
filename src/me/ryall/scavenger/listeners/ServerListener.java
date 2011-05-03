@@ -6,8 +6,8 @@ import org.bukkit.event.server.PluginEnableEvent;
 
 public class ServerListener extends org.bukkit.event.server.ServerListener
 {
-    public void onPluginEnable(PluginEnableEvent _event) 
+    public void onPluginEnable(PluginEnableEvent _event)
     {
-    	Scavenger.get().getPermissionManager().load();
+        Scavenger.get().getPermissionManager().load();
     }
 }
