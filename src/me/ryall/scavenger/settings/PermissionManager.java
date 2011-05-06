@@ -10,7 +10,7 @@ import com.nijiko.permissions.PermissionHandler;
 
 public class PermissionManager
 {
-    public static String PERMISSIONS_PREFIX = "wrath.";
+    public static String PERMISSIONS_PREFIX = "scavenger.";
 
     public PermissionHandler permissions;
 
