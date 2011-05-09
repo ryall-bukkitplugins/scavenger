@@ -99,7 +99,10 @@ public class RestorationManager
                 // Second restore the player's remaining inventory.
                 for (ItemStack stack : restoration.drops)
                 {
-                    _player.getInventory().setItem(_player.getInventory().firstEmpty(), stack);
+                    int slot = _player.getInventory().firstEmpty();
+                    
+                    if (slot != -1)
+                        _player.getInventory().setItem(_player.getInventory().firstEmpty(), stack);
                 }
 
                 Scavenger.get().getCommunicationManager().message(_player, "Your inventory has been restored.");
