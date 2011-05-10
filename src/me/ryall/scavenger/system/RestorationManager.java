@@ -38,8 +38,10 @@ public class RestorationManager
         Restoration restoration = new Restoration();
 
         restoration.enabled = false;
-        restoration.drops = new ArrayList<ItemStack>(_drops);
-
+        //restoration.drops = new ArrayList<ItemStack>(_drops);
+        restoration.inventory = _player.getInventory().getContents();
+        restoration.armour = _player.getInventory().getArmorContents();
+        
         restorations.put(_player.getName(), restoration);
 
         _drops.clear();
@@ -65,7 +67,7 @@ public class RestorationManager
                 _player.getInventory().clear();
 
                 // First restore armour, if any exists (armour is stored last in the list).
-                int numDrops = restoration.drops.size();
+                /*int numDrops = restoration.drops.size();
                 
                 for (int i = 1; i <= numDrops; i++)
                 {
@@ -103,7 +105,10 @@ public class RestorationManager
                     
                     if (slot != -1)
                         _player.getInventory().setItem(_player.getInventory().firstEmpty(), stack);
-                }
+                }*/
+                
+                _player.getInventory().setContents(restoration.inventory);
+                _player.getInventory().setArmorContents(restoration.armour);
 
                 Scavenger.get().getCommunicationManager().message(_player, "Your inventory has been restored.");
 
