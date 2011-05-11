@@ -1,6 +1,5 @@
 package me.ryall.scavenger.system;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +37,6 @@ public class RestorationManager
         Restoration restoration = new Restoration();
 
         restoration.enabled = false;
-        //restoration.drops = new ArrayList<ItemStack>(_drops);
         restoration.inventory = _player.getInventory().getContents();
         restoration.armour = _player.getInventory().getArmorContents();
         
@@ -65,47 +63,6 @@ public class RestorationManager
             if (restoration.enabled)
             {
                 _player.getInventory().clear();
-
-                // First restore armour, if any exists (armour is stored last in the list).
-                /*int numDrops = restoration.drops.size();
-                
-                for (int i = 1; i <= numDrops; i++)
-                {
-                    ItemStack stack = restoration.drops.get(numDrops - i);
-                    
-                    // Continue until we have restored 4 armour slots or found a non-armour item.
-                    if (i < 5 && stack.getTypeId() >= ARMOUR_START_INDEX && stack.getTypeId() <= ARMOUR_END_INDEX)
-                    {
-                        switch (stack.getTypeId() % ARMOUR_MODULUS)
-                        {
-                        case ARMOUR_HEAD:
-                            _player.getInventory().setHelmet(stack); 
-                            break;
-                        case ARMOUR_CHEST:
-                            _player.getInventory().setChestplate(stack); 
-                            break;
-                        case ARMOUR_LEGS:
-                            _player.getInventory().setLeggings(stack); 
-                            break;
-                        case ARMOUR_FEET:
-                            _player.getInventory().setBoots(stack); 
-                            break;
-                        }
-                        
-                        restoration.drops.remove(numDrops - i);
-                    }
-                    else
-                        break;
-                }
-                
-                // Second restore the player's remaining inventory.
-                for (ItemStack stack : restoration.drops)
-                {
-                    int slot = _player.getInventory().firstEmpty();
-                    
-                    if (slot != -1)
-                        _player.getInventory().setItem(_player.getInventory().firstEmpty(), stack);
-                }*/
                 
                 _player.getInventory().setContents(restoration.inventory);
                 _player.getInventory().setArmorContents(restoration.armour);

@@ -1,6 +1,6 @@
 name: Scavenger
 main: me.ryall.scavenger.Scavenger
-version: 1.0.0
+version: 1.2.0
 author: SirHedgehog
 description: Stop items being dropped after death.
 commands:
