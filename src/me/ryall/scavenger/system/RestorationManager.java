@@ -1,6 +1,6 @@
 package me.ryall.scavenger.system;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,8 +39,8 @@ public class RestorationManager
 
         restoration.enabled = false;
         //restoration.drops = new ArrayList<ItemStack>(_drops);
-        restoration.inventory = _player.getInventory().getContents();
-        restoration.armour = _player.getInventory().getArmorContents();
+        restoration.inventory = Arrays.asList(_player.getInventory().getContents());
+        restoration.armour = Arrays.asList(_player.getInventory().getArmorContents());
         
         restorations.put(_player.getName(), restoration);
 
@@ -107,8 +107,8 @@ public class RestorationManager
                         _player.getInventory().setItem(_player.getInventory().firstEmpty(), stack);
                 }*/
                 
-                _player.getInventory().setContents(restoration.inventory);
-                _player.getInventory().setArmorContents(restoration.armour);
+                _player.getInventory().setContents(restoration.inventory.toArray(new ItemStack[0]));
+                _player.getInventory().setArmorContents(restoration.armour.toArray(new ItemStack[0]));
 
                 Scavenger.get().getCommunicationManager().message(_player, "Your inventory has been restored.");
 
