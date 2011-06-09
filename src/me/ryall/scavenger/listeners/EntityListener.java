@@ -20,10 +20,7 @@ public class EntityListener extends org.bukkit.event.entity.EntityListener
             Player player = (Player)event.getEntity();
             
             if (Scavenger.get().getPermissionManager().hasScavengePermission(player))
-            {
-                Scavenger.get().getCommunicationManager().message(player, "Gathering your dropped items.");
-                RestorationManager.collect((Player) event.getEntity(), event.getDrops());
-            }
+                RestorationManager.collect((Player)event.getEntity(), event.getDrops());
         }
     }
 }

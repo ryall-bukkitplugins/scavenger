@@ -13,4 +13,9 @@ public class ConfigManager
         config = Scavenger.get().getConfiguration();
         config.load();
     }
+    
+    public boolean shouldNotify()
+    {
+        return config.getBoolean("Global.Notify", true);
+    }
 }

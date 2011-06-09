@@ -1,5 +1,4 @@
-Scavenge:
-[
-    "WEAPONS",
-    "ARMOUR"
-]
+# Global plugin settings.
+Global:
+    # Whether or not to notify the player when their items are gathered and restored.
+    Notify: true

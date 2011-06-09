@@ -10,15 +10,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class RestorationManager
 {
-    public static final int ARMOUR_START_INDEX = 298;
-    public static final int ARMOUR_END_INDEX = 317;
-    
-    public static final int ARMOUR_MODULUS = 4;
-    public static final int ARMOUR_HEAD = 2;
-    public static final int ARMOUR_CHEST = 3;
-    public static final int ARMOUR_LEGS = 0;
-    public static final int ARMOUR_FEET = 1;
-    
     private static HashMap<String, Restoration> restorations = new HashMap<String, Restoration>();
 
     public static boolean hasRestoration(Player _player)
@@ -30,8 +21,8 @@ public class RestorationManager
     {
         if (hasRestoration(_player))
         {
-            Scavenger.get().getCommunicationManager().error(_player, "Found an existing set of items for you when trying to save your current items.");
-            restorations.remove(_player.getName());
+            Scavenger.get().getCommunicationManager().error(_player, "Restoration already exists, ignoring.");
+            return;
         }
 
         Restoration restoration = new Restoration();
@@ -43,6 +34,9 @@ public class RestorationManager
         restorations.put(_player.getName(), restoration);
 
         _drops.clear();
+        
+        if (Scavenger.get().getConfigManager().shouldNotify())
+            Scavenger.get().getCommunicationManager().message(_player, "Gathered your dropped items.");
     }
 
     public static void enable(Player _player)
@@ -67,7 +61,8 @@ public class RestorationManager
                 _player.getInventory().setContents(restoration.inventory);
                 _player.getInventory().setArmorContents(restoration.armour);
 
-                Scavenger.get().getCommunicationManager().message(_player, "Your inventory has been restored.");
+                if (Scavenger.get().getConfigManager().shouldNotify())
+                    Scavenger.get().getCommunicationManager().message(_player, "Your inventory has been restored.");
 
                 restorations.remove(_player.getName());
             }
