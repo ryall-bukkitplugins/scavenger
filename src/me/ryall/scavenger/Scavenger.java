@@ -20,7 +20,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Scavenger extends JavaPlugin
 {
-    public static String PLUGIN_NAME = "Scavenger";
+    public Scavenger() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public static String PLUGIN_NAME = "Scavenger";
     public static String LOG_HEADER = "[" + PLUGIN_NAME + "] ";
     private static Scavenger instance = null;
 

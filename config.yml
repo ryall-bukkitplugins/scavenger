@@ -2,3 +2,6 @@
 Global:
     # Whether or not to notify the player when their items are gathered and restored.
     Notify: true
+
+    # Drop percentage
+    DropChance: 0
