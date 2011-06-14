@@ -18,4 +18,8 @@ public class ConfigManager
     {
         return config.getBoolean("Global.Notify", true);
     }
+    public double dropChance()
+    {
+    	return config.getDouble("Global.DropChance", 0);
+    }
 }
