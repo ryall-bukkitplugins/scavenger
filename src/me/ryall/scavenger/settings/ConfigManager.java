@@ -18,4 +18,19 @@ public class ConfigManager
     {
         return config.getBoolean("Global.Notify", true);
     }
+    
+    public boolean isEconomyEnabled()
+    {
+        return config.getBoolean("Economy.Enabled", true);
+    }
+    
+    public String getEconomyAdapter()
+    {
+        return config.getString("Economy.Adapter", "iConomy");
+    }
+    
+    public double getEconomyRestoreCost()
+    {
+        return config.getDouble("Economy.RestoreCost", 10.0);
+    }
 }

@@ -37,6 +37,11 @@ public class PermissionManager
     {
         return hasGlobalPermission(_player) || hasPermission(_player, PERMISSIONS_PREFIX + "scavenge");
     }
+    
+    public boolean hasFreePermission(Player _player)
+    {
+        return hasGlobalPermission(_player) || hasPermission(_player, PERMISSIONS_PREFIX + "free");
+    }
 
     private boolean hasPermission(Player _player, String _permission)
     {

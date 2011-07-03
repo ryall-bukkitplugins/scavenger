@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.ryall.scavenger.Scavenger;
+import me.ryall.scavenger.economy.EconomyInterface;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -24,7 +26,25 @@ public class RestorationManager
             Scavenger.get().getCommunicationManager().error(_player, "Restoration already exists, ignoring.");
             return;
         }
-
+        
+        if (Scavenger.get().getConfigManager().isEconomyEnabled() && !Scavenger.get().getPermissionManager().hasFreePermission(_player))
+        {
+            double cost = Scavenger.get().getConfigManager().getEconomyRestoreCost();
+            EconomyInterface economy = Scavenger.get().getEconomyManager().getInterface();
+            
+            if (Scavenger.get().getEconomyManager().charge(_player, cost))
+                Scavenger.get().getCommunicationManager().message(_player, "Saving your inventory for: " + ChatColor.YELLOW + economy.formatCurrency(cost));
+            else
+            {
+                Scavenger.get().getCommunicationManager().message(_player, ChatColor.RED + "Your items have been dropped where you died.");
+                Scavenger.get().getCommunicationManager().message(_player, ChatColor.RED + "Saving your inventory requires: " + ChatColor.YELLOW + economy.formatCurrency(cost));
+                
+                return;
+            }
+        } 
+        else if (Scavenger.get().getConfigManager().shouldNotify())
+            Scavenger.get().getCommunicationManager().message(_player, "Saving your inventory.");
+        
         Restoration restoration = new Restoration();
 
         restoration.enabled = false;
@@ -34,9 +54,6 @@ public class RestorationManager
         restorations.put(_player.getName(), restoration);
 
         _drops.clear();
-        
-        if (Scavenger.get().getConfigManager().shouldNotify())
-            Scavenger.get().getCommunicationManager().message(_player, "Gathered your dropped items.");
     }
 
     public static void enable(Player _player)

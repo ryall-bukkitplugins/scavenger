@@ -3,16 +3,14 @@ package me.ryall.scavenger;
 import java.util.logging.Logger;
 
 import me.ryall.scavenger.communication.CommunicationManager;
+import me.ryall.scavenger.economy.EconomyManager;
 import me.ryall.scavenger.listeners.EntityListener;
 import me.ryall.scavenger.listeners.PlayerListener;
 import me.ryall.scavenger.listeners.ServerListener;
 import me.ryall.scavenger.settings.ConfigManager;
 import me.ryall.scavenger.settings.PermissionManager;
-import me.ryall.scavenger.system.RestorationManager;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +29,7 @@ public class Scavenger extends JavaPlugin
     private ConfigManager configManager;
     private PermissionManager permissionManager;
     private CommunicationManager communicationManager;
+    private EconomyManager economyManager;
 
     public static Scavenger get()
     {
@@ -42,6 +41,9 @@ public class Scavenger extends JavaPlugin
         instance = this;
         log = Logger.getLogger("Minecraft");
 
+        Plugin plugin = getServer().getPluginManager().getPlugin(PLUGIN_NAME);
+        logInfo("Starting: v" + plugin.getDescription().getVersion());
+        
         serverListener = new ServerListener();
         entityListener = new EntityListener();
         playerListener = new PlayerListener();
@@ -49,16 +51,14 @@ public class Scavenger extends JavaPlugin
         configManager = new ConfigManager();
         permissionManager = new PermissionManager();
         communicationManager = new CommunicationManager();
+        economyManager = new EconomyManager();
 
         registerEvents();
-
-        Plugin plugin = getServer().getPluginManager().getPlugin(PLUGIN_NAME);
-        logInfo("Started: v" + plugin.getDescription().getVersion());
     }
 
     public void onDisable()
     {
-        logInfo("Stopped");
+        logInfo("Stopping");
     }
 
     public void registerEvents()
@@ -75,7 +75,7 @@ public class Scavenger extends JavaPlugin
     {
         if (_label.equals("scavenger") || _label.equals("scv"))
         {
-            if (_sender instanceof Player)
+            /*if (_sender instanceof Player)
             {
                 Player player = (Player)_sender;
 
@@ -90,7 +90,7 @@ public class Scavenger extends JavaPlugin
                     }
                 }
             } else
-                logError("Commands can only be executed in-game.");
+                logError("Commands can only be executed in-game.");*/
 
             return true;
         }
@@ -111,6 +111,11 @@ public class Scavenger extends JavaPlugin
     public CommunicationManager getCommunicationManager()
     {
         return communicationManager;
+    }
+    
+    public EconomyManager getEconomyManager()
+    {
+        return economyManager;
     }
     
     public void logInfo(String _message)
